@@ -1,3 +1,4 @@
+import io.qameta.allure.Description;
 import io.restassured.response.Response;
 import org.junit.Test;
 
@@ -8,6 +9,7 @@ import static org.hamcrest.Matchers.notNullValue;
 public class LoginUserTest extends BaseTest{
 
     @Test
+    @Description("Login user with correct credentials")
     public void correctLoginResponseAndStatusCode(){
         getUserAPI().registerUser(getRegisterUserPOJO());
         Response response = getUserAPI().loginUser(getLoginUserPOJO());
@@ -25,6 +27,7 @@ public class LoginUserTest extends BaseTest{
     }
 
     @Test
+    @Description("Trying to login user with incorrect email. Expected unauthorized error")
     public void loginWithIncorrectEmail(){
         getUserAPI().registerUser(getRegisterUserPOJO());
         LoginUserPOJO loginUserPOJO = new LoginUserPOJO("", super.getPassword());
@@ -37,6 +40,7 @@ public class LoginUserTest extends BaseTest{
     }
 
     @Test
+    @Description("Trying to login user with incorrect password. Expected unauthorized error")
     public void loginWithIncorrectPassword(){
         getUserAPI().registerUser(getRegisterUserPOJO());
         LoginUserPOJO loginUserPOJO = new LoginUserPOJO(super.getEmail(), "");

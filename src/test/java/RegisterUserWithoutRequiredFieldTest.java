@@ -1,3 +1,4 @@
+import io.qameta.allure.Description;
 import io.restassured.response.Response;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +30,7 @@ public class RegisterUserWithoutRequiredFieldTest extends BaseTest{
     }
 
     @Test
+    @Description("Trying to register user with missing fields. Parametrized test")
     public void registerUserWithoutRequiredFieldCorrectResponseBodyAndCode(){
         RegisterUserPOJO registerUserPOJO = new RegisterUserPOJO(email, password, name);
         Response response = getUserAPI().registerUser(registerUserPOJO);

@@ -1,3 +1,4 @@
+import io.qameta.allure.Description;
 import io.restassured.response.Response;
 import org.junit.Test;
 
@@ -8,6 +9,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class ChangeUserDataTest extends BaseTest{
 
     @Test
+    @Description("Changing name and email for authorized user. Basic flow")
     public void changeUserDataWithAuthorization(){
         Response responseCreate = getUserAPI().registerUser(getRegisterUserPOJO());
         String accessToken = responseCreate.jsonPath().get("accessToken");
@@ -22,6 +24,7 @@ public class ChangeUserDataTest extends BaseTest{
     }
 
     @Test
+    @Description("Trying changing name and email for not authorized user. Expected unauthorized error")
     public void changeUserDataWithoutAuthorization(){
         Response responseChange = getUserAPI().changeUserData(getChangeUserDataPOJO(), "");
         responseChange.then().assertThat().body("success", equalTo(false))

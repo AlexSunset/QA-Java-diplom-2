@@ -1,3 +1,4 @@
+import io.qameta.allure.Description;
 import io.restassured.response.Response;
 import org.junit.Test;
 
@@ -9,6 +10,7 @@ import static org.hamcrest.Matchers.notNullValue;
 public class RegisterUserTest extends  BaseTest{
 
     @Test
+    @Description("New user registration. Basic flow")
     public void registerNewUserCorrectResponseBodyAndStatusCode(){
         Response response = getUserAPI().registerUser(getRegisterUserPOJO());
         response.then().assertThat().body("success", equalTo(true))
@@ -25,6 +27,7 @@ public class RegisterUserTest extends  BaseTest{
     }
 
     @Test
+    @Description("Trying to register user which already exist. Expected forbidden error")
     public void registerUserAlreadyExistCorrectResponseBodyAndStatusCode(){
         getUserAPI().registerUser(getRegisterUserPOJO());
         Response response = getUserAPI().registerUser(getRegisterUserPOJO());

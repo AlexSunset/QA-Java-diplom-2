@@ -1,3 +1,4 @@
+import io.qameta.allure.Description;
 import io.restassured.response.Response;
 import org.junit.Test;
 
@@ -11,6 +12,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 public class CreateOrderTest extends BaseTest{
 
     @Test
+    @Description("Creating order with authorization token. Basic flow")
     public void createOrderWithAuthorization(){
         String accessToken = getUserAPI().registerUser(getRegisterUserPOJO()).jsonPath().get("accessToken");
         Response response = getOrderAPI().createOrder(getCreateOrderPOJO(), accessToken);
@@ -23,6 +25,7 @@ public class CreateOrderTest extends BaseTest{
     }
 
     @Test
+    @Description("Creating order without authorization token. Basic flow")
     public void createOrderWithoutAuthorization(){
         Response response = getOrderAPI().createOrder(getCreateOrderPOJO(), "");
         response.then().assertThat()
@@ -34,6 +37,7 @@ public class CreateOrderTest extends BaseTest{
     }
 
     @Test
+    @Description("Creating order with empty ingredient list. Expected Bad request")
     public void createOrderWithoutIngredients(){
         Response response = getOrderAPI().createOrder(new CreateOrderPOJO(new ArrayList<>()), "");
         response.then().assertThat()
@@ -45,9 +49,9 @@ public class CreateOrderTest extends BaseTest{
     }
 
     @Test
+    @Description("Creating order with wrong item ingredient list. Expected internal server error")
     public void createOrderWithWrongIngredients(){
-        ArrayList<String> ingredientsWrong = new ArrayList<>(Collections.singleton("1234"));
-        Response response = getOrderAPI().createOrder(new CreateOrderPOJO(ingredientsWrong), "");
+        Response response = getOrderAPI().createOrder(new CreateOrderPOJO(getIngredientsWrong()), "");
         response.then().assertThat().statusCode(SC_INTERNAL_SERVER_ERROR);
     }
 }

@@ -14,6 +14,8 @@ public class BaseTest {
     private final String changeEmail = "change_" + email;
     private final String changeName = "change_" + name;
     private final ArrayList<String> ingredients = new ArrayList<>(Collections.singleton("61c0c5a71d1f82001bdaaa6f"));
+    private final ArrayList<String> ingredientsWrong = new ArrayList<>(Collections.singleton("1234"));
+    public final static String BASE_URI = "https://stellarburgers.nomoreparties.site/";
 
 
     private final RegisterUserPOJO registerUserPOJO = new RegisterUserPOJO(email, password, name);
@@ -25,7 +27,7 @@ public class BaseTest {
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://stellarburgers.nomoreparties.site/";
+        RestAssured.baseURI = BASE_URI;
     }
 
     @After
@@ -87,5 +89,9 @@ public class BaseTest {
 
     public OrderAPI getOrderAPI() {
         return orderAPI;
+    }
+
+    public ArrayList<String> getIngredientsWrong() {
+        return ingredientsWrong;
     }
 }
