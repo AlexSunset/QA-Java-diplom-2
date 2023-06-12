@@ -3,7 +3,6 @@ import io.restassured.response.Response;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.CoreMatchers.equalTo;
